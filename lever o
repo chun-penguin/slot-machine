@@ -4,7 +4,7 @@ PImage[] spinning = new PImage[4]; //new array of images
 
 void setup()
 {
-  size(1200, 600); 
+  size(1300, 600); 
   font1 = createFont("Times New Roman", 30); //makes the new font something
   textFont(font1); //changes the font that you use to font1
   textAlign(CENTER, CENTER); //aligns text center horizontally and vertically
@@ -28,7 +28,7 @@ int reel2;
 int reel3;
 
 void draw() {
-  bool_onlever = mouseX > 343 && mouseX < 370 && mouseY > 37 && mouseY < 62; //when the mouse will be on the lever
+  bool_onlever = mouseX > 1217 && mouseX < 1237 && mouseY > 140 && mouseY < 160; //when the mouse will be on the lever
 
   //makes the background and text and boxes
   background(0);
@@ -40,9 +40,9 @@ void draw() {
   rect(810, 120, 350, 350);
 
   if (bool_pressedonlever) { //if you press on a lever
-    if (mouseY > 50 && mouseY <150) {
+    if (mouseY > 150 && mouseY <550) {
       leveron(); //function that makes the lever correspond to where your mouse is
-    } else if (mouseY <= 50) {
+    } else if (mouseY <= 150) {
       leverup(); //doesn't let the lever go higher then it should be
     } else {
       leverdown(); //doesn't let the lever go lower then it should be
@@ -115,7 +115,7 @@ void mousePressed() {
   if (bool_onlever && !bool_spinning) {
     bool_pressedonlever = true; //you can't pull the lever if it is already spinning. and you have to be on the lever
   }
-  if (mouseButton == CENTER) { //this is the secret winning trick
+  if (key == 'h' && mouseButton == CENTER) { //this is the secret winning trick
     win = true;
   } else {
     win = false;
@@ -124,7 +124,7 @@ void mousePressed() {
 void mouseReleased() {
   if (bool_pressedonlever) { //if you press
     bool_pressedonlever = false; //then no more
-    if (!bool_spin && !bool_spinning && mouseY > 100) { //you have to pull the lever down
+    if (!bool_spin && !bool_spinning && mouseY > 350) { //you have to pull the lever down
       bool_reels = false; //don't show the reels anymore
       bool_spin = true; //spin the thing
     }
@@ -132,30 +132,30 @@ void mouseReleased() {
 }
 // draws pictures of the lever if it is up / down / or if your pressing on it with your mouse
 void leverup() {
-  strokeWeight(12);
+  strokeWeight(20);
   stroke(150);
-  line(357, 100, 357, 50);
+  line(1227, 350, 1227, 150);
   strokeWeight(1);
   noStroke();
-  ellipse(357, 50, 20, 20);
+  ellipse(1227, 150, 40, 40);
 }
 
 void leverdown() {
-  strokeWeight(12);
+  strokeWeight(20);
   stroke(150);
-  line(357, 100, 357, 150);
+  line(1227, 350, 1227, 550);
   strokeWeight(1);
   noStroke();
-  ellipse(357, 150, 20, 20);
+  ellipse(1227, 550, 40, 40);
 }
 
 void leveron() {
-  strokeWeight(12);
+  strokeWeight(20);
   stroke(150);
-  line(357, 100, 357, mouseY);
+  line(1227, 350, 1227, mouseY);
   strokeWeight(1);
   noStroke();
-  ellipse(357, mouseY, 20, 20);
+  ellipse(1227, mouseY, 40, 40);
 }
 
 void loadImages() { //just loads all the images

@@ -1,6 +1,6 @@
 PFont font1; //new font
-PImage[] fruits = new PImage[4]; //new array of images, like a list in python, 4 things in the list
-PImage[] spinning = new PImage[4]; //new array of images
+PImage[] numbers = new PImage[7]; //new array of images, like a list in python, 4 things in the list
+PImage[] spinning = new PImage[7]; //new array of images
 
 void setup()
 {
@@ -55,9 +55,9 @@ void draw() {
     bool_spinning = true; 
     bool_spin = false;
 
-    reel1 = int(random(4)); //random values to show the different images
-    reel2 = int(random(4));
-    reel3 = int(random(4));
+    reel1 = int(random(7)); //random values to show the different images
+    reel2 = int(random(7));
+    reel3 = int(random(7));
 
     if (win) { //secret winning trick makes the values all the same
       reel2 = reel1;
@@ -71,24 +71,24 @@ void draw() {
       image(spinning[spinframe], 421, 121);
       image(spinning[spinframe], 812, 121);
     }else if (time < 240) { // at 4 seconds
-      image(fruits[reel1], 30, 121); //show the first reel
+      image(numbers[reel1], 30, 121); //show the first reel
       image(spinning[spinframe], 421, 121); //the rest are still spinning
       image(spinning[spinframe], 812, 121);
     } else if (time < 360) { //at 6 seconds
-      image(fruits[reel1], 30, 121); //first two are shown
-      image(fruits[reel2], 421, 121);
+      image(numbers[reel1], 30, 121); //first two are shown
+      image(numbers[reel2], 421, 121);
       image(spinning[spinframe], 812, 121); //last is still spinning
     } else if (time < 370) {
-      image(fruits[reel1], 30, 121); //all are shown
-      image(fruits[reel2], 421, 121);
-      image(fruits[reel3], 812, 121);
+      image(numbers[reel1], 30, 121); //all are shown
+      image(numbers[reel2], 421, 121);
+      image(numbers[reel3], 812, 121);
     } else {
       time = 0; //restarts time so you can spin it again
       bool_spinning = false; //you aren't spinning anymore
       bool_reels = true; //show the reels
     }
     float_spinframe += 0.2; //adds to the floatspinframe to make it increase not eversecond
-    if (float_spinframe > 4) {
+    if (float_spinframe > 7) {
       float_spinframe = 0;
     }
     spinframe = floor(float_spinframe); //spinframe is an integer so we floor the float so we can have a slowly increasing integer.
@@ -99,9 +99,9 @@ void draw() {
   }
 
   if (bool_reels) { //shows all the reels and if you lose or not
-    image(fruits[reel1], 30, 121);
-    image(fruits[reel2], 421, 121);
-    image(fruits[reel3], 812, 121);
+    image(numbers[reel1], 30, 121);
+    image(numbers[reel2], 421, 121);
+    image(numbers[reel3], 812, 121);
     if (reel1 == reel2 && reel1 == reel3) {
       text("YOU WIN!!!", 600, 530);
     } else {
@@ -115,12 +115,13 @@ void mousePressed() {
   if (bool_onlever && !bool_spinning) {
     bool_pressedonlever = true; //you can't pull the lever if it is already spinning. and you have to be on the lever
   }
-  if (key == 'h' && mouseButton == CENTER) { 
+  if (key == 'h' && mouseButton == CENTER) { //this is the secret winning trick
     win = true;
   } else {
     win = false;
   }
 }
+
 void mouseReleased() {
   if (bool_pressedonlever) { //if you press
     bool_pressedonlever = false; //then no more
@@ -160,13 +161,20 @@ void leveron() {
 
 void loadImages() { //just loads all the images
   
-  fruits[0] = loadImage("one.bmp");
-  fruits[1] = loadImage("two.bmp");
-  fruits[2] = loadImage("three.bmp");
-  fruits[3] = loadImage("four.bmp");
+  numbers[0] = loadImage("one.bmp");
+  numbers[1] = loadImage("two.bmp");
+  numbers[2] = loadImage("three.bmp");
+  numbers[3] = loadImage("four.bmp");
+  numbers[4] = loadImage("five.bmp");
+  numbers[5] = loadImage("six.bmp");
+  numbers[6] = loadImage("seven.bmp");
 
   spinning[0] = loadImage("spin1.bmp");
   spinning[1] = loadImage("spin2.bmp");
   spinning[2] = loadImage("spin3.bmp");
   spinning[3] = loadImage("spin4.bmp");
+  spinning[4] = loadImage("spin5.bmp");
+  spinning[5] = loadImage("spin6.bmp");
+  spinning[6] = loadImage("spin7.bmp");
+
 }

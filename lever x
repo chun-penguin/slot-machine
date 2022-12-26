@@ -1,0 +1,125 @@
+PFont font1; //new font
+PImage[] numbers = new PImage[7]; //new array of images, like a list in python, 4 things in the list
+PImage[] spinning = new PImage[7]; //new array of images
+
+void setup()
+{
+  size(1190, 600); 
+  font1 = createFont("Times New Roman", 30); //makes the new font something
+  textFont(font1); //changes the font that you use to font1
+  textAlign(CENTER, CENTER); //aligns text center horizontally and vertically
+  loadImages(); //executes function that i made that loads the images
+  fill(255); //fill is white
+}
+
+boolean bool_spinning; //the machine is spinning
+boolean win; //secret winning trick
+
+float float_spinframe; //to calculate how fast to switch the images
+int spinframe;
+int time;
+
+boolean bool_reels; //to display the reels after it has spun
+int reel1; //the values that correspond to each image for each reel
+int reel2;
+int reel3;
+
+void draw() {
+  
+  //makes the background and text and boxes
+  background(0);
+  text("Slot Machine", 600, 50);
+  strokeWeight(1);
+  stroke(0);
+  rect(29, 120, 350, 350);
+  rect(420, 120, 350, 350);
+  rect(810, 120, 350, 350);
+
+  
+
+  if (!bool_spinning && keyPressed) {
+    bool_reels = false;
+    bool_spinning = true; 
+
+    reel1 = int(random(7)); //random values to show the different images
+    reel2 = int(random(7));
+    reel3 = int(random(7));
+
+    if (win) { //secret winning trick makes the values all the same
+      reel2 = reel1;
+      reel3 = reel1;
+    }
+  }
+
+  if (bool_spinning) { //shows the frames spinning
+    if (time < 120) { //for the first 2 seconds make all the frames look like their spinning
+      image(spinning[spinframe], 30, 121); //the images spin because sprinframe corresponds to the image to use. it goes through the array of spinning images
+      image(spinning[spinframe], 421, 121);
+      image(spinning[spinframe], 812, 121);
+    }else if (time < 240) { // at 4 seconds
+      image(numbers[reel1], 30, 121); //show the first reel
+      image(spinning[spinframe], 421, 121); //the rest are still spinning
+      image(spinning[spinframe], 812, 121);
+    } else if (time < 360) { //at 6 seconds
+      image(numbers[reel1], 30, 121); //first two are shown
+      image(numbers[reel2], 421, 121);
+      image(spinning[spinframe], 812, 121); //last is still spinning
+    } else if (time < 370) {
+      image(numbers[reel1], 30, 121); //all are shown
+      image(numbers[reel2], 421, 121);
+      image(numbers[reel3], 812, 121);
+    } else {
+      time = 0; //restarts time so you can spin it again
+      bool_spinning = false; //you aren't spinning anymore
+      bool_reels = true; //show the reels
+    }
+    float_spinframe += 0.2; //adds to the floatspinframe to make it increase not eversecond
+    if (float_spinframe > 7) {
+      float_spinframe = 0;
+    }
+    spinframe = floor(float_spinframe); //spinframe is an integer so we floor the float so we can have a slowly increasing integer.
+    // it will end up something like this:
+    //float spinframe: 0.2 0.4 0.6 0.8 etc
+    //spin frame     : 0   0   0   0   1   1   1   1   2   2   2   2   
+    time ++; //adds time
+  }
+
+  if (bool_reels) { //shows all the reels and if you lose or not
+    image(numbers[reel1], 30, 121);
+    image(numbers[reel2], 421, 121);
+    image(numbers[reel3], 812, 121);
+    if (reel1 == reel2 && reel1 == reel3) {
+      text("YOU WIN!!!", 600, 530);
+    } else {
+      text("You lose.", 600, 530);
+    }
+  }
+}
+
+void keyPressed() {
+  if (mouseButton == CENTER) { //this is the secret winning trick
+    win = true;
+  } else {
+    win = false;
+  }
+}
+
+void loadImages() { //just loads all the images
+  
+  numbers[0] = loadImage("one.bmp");
+  numbers[1] = loadImage("two.bmp");
+  numbers[2] = loadImage("three.bmp");
+  numbers[3] = loadImage("four.bmp");
+  numbers[4] = loadImage("five.bmp");
+  numbers[5] = loadImage("six.bmp");
+  numbers[6] = loadImage("seven.bmp");
+
+  spinning[0] = loadImage("spin1.bmp");
+  spinning[1] = loadImage("spin2.bmp");
+  spinning[2] = loadImage("spin3.bmp");
+  spinning[3] = loadImage("spin4.bmp");
+  spinning[4] = loadImage("spin5.bmp");
+  spinning[5] = loadImage("spin6.bmp");
+  spinning[6] = loadImage("spin7.bmp");
+  
+}

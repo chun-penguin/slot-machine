@@ -115,7 +115,7 @@ void mousePressed() {
   if (bool_onlever && !bool_spinning) {
     bool_pressedonlever = true; //you can't pull the lever if it is already spinning. and you have to be on the lever
   }
-  if (key == 'h' && mouseButton == CENTER) { //this is the secret winning trick
+  if (key == 'h' && mouseButton == CENTER) { 
     win = true;
   } else {
     win = false;
